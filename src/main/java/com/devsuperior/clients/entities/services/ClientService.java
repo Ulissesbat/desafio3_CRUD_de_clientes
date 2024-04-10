@@ -11,6 +11,8 @@ import com.devsuperior.clients.entities.dto.ClientDTO;
 import com.devsuperior.clients.entities.repositories.ClienteRepository;
 import com.devsuperior.clients.entities.servicesexceptios.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 
 
 @Service
@@ -31,7 +33,37 @@ public class ClientService {
         Page<Client> result = repository.findAll(pageable);
         return result.map(x -> new ClientDTO(x));
     }
+	@Transactional(readOnly = true)
+	public ClientDTO insert(ClientDTO dto) {
+		Client entity = new Client();
+		DtoToEntityMapper(dto, entity);
+        entity = repository.save(entity);
+        return new ClientDTO(entity);
+		
+	}
+	@Transactional
+	public ClientDTO update(Long id, ClientDTO dto) {
+	    try {
+	        Client entity = repository.getReferenceById(id);
+	        DtoToEntityMapper(dto, entity); 
+	        entity = repository.save(entity);
+	        return new ClientDTO(entity);
+	    } catch (EntityNotFoundException e) {
+	        throw new ResourceNotFoundException("Recurso não encontrado");
+	    }
+	}
+
 	
+	private void DtoToEntityMapper(ClientDTO dto, Client entity) {
+		entity.setName(dto.getName());
+        entity.setCpf(dto.getCpf());
+        entity.setIncome(dto.getIncome());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setChildren(dto.getChildren());
+    }
+	
+	
+
 	
 
 }
