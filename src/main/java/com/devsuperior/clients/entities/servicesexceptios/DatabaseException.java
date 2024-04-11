@@ -1,4 +1,4 @@
-package com.devsuperior.clients.entities.services;
+package com.devsuperior.clients.entities.servicesexceptios;
 
 public class DatabaseException extends RuntimeException {
 	

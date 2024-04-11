@@ -1,16 +1,18 @@
 package com.devsuperior.clients.entities.services;
 
+import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.clients.entities.Client;
 import com.devsuperior.clients.entities.dto.ClientDTO;
 import com.devsuperior.clients.entities.repositories.ClienteRepository;
+import com.devsuperior.clients.entities.servicesexceptios.DatabaseException;
 import com.devsuperior.clients.entities.servicesexceptios.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -24,11 +26,11 @@ public class ClientService {
 	private ClienteRepository repository;
 	
 	@Transactional(readOnly = true)
-	    public ClientDTO findById(Long id) {
-	        Client client = repository.findById(id).orElseThrow(
-	                () -> new ResourceNotFoundException("Recurso não encontrado"));
-	        return new ClientDTO(client);
-	    }
+    public ClientDTO findById(Long id) {
+        Client product = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso não encontrado"));
+        return new ClientDTO(product);
+    }
 	
 	@Transactional(readOnly = true)
     public Page<ClientDTO> findAll(Pageable pageable) {
@@ -68,6 +70,11 @@ public class ClientService {
 	    }
 
 	
+	private void NotFoundException(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void DtoToEntityMapper(ClientDTO dto, Client entity) {
 		entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
