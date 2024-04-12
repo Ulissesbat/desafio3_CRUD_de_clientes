@@ -2,7 +2,7 @@ package com.devsuperior.clients.entities.dto;
 
 import java.time.Instant;
 
-public class CustomError {
+public class CustomErrorDTO {
 	
 	private Instant timestamp;
 	private Integer status;
@@ -10,7 +10,7 @@ public class CustomError {
 	private String path;
 	
 	
-	public CustomError(Instant timestamp, Integer status, String error, String path) {
+	public CustomErrorDTO(Instant timestamp, Integer status, String error, String path) {
 		super();
 		this.timestamp = timestamp;
 		this.status = status;

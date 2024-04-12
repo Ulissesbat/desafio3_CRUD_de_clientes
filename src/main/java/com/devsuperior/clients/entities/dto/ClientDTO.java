@@ -6,22 +6,18 @@ import com.devsuperior.clients.entities.Client;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public class ClientDTO {
 	
 	private Long id;
 	
-	@Size(min = 3, max = 80, message = "Nome precisar ter de 3 a 80 caracteres")
+	@Size(min = 3, max = 70, message = "Nome precisar ter de 3 a 70 caracteres")
     @NotBlank(message = "Campo requerido")
 	private String name;
 	
-	@Size(min = 11, max = 11, message = "Nome precisar ter de 11 caracteres")
-	@NotBlank(message = "Campo requerido")
 	private String cpf;
 	
-	@Positive(message = "O Valor deve ser positivo")
 	private Double income;
 	
 	@PastOrPresent
